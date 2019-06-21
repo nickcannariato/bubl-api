@@ -1,15 +1,12 @@
-# lambda-backend-buildweek-skeleton
+# bubl-api
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-TODO: Put more badges here.
 
-> A backend starter for Lambda Students to use during build week
-
-TODO: Fill out this long description.
+> An API for Bubl -- A Lambda School Build Week project
 
 ## Table of Contents
 
-- [Background](#background)
+- [Security](#security)
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
@@ -17,7 +14,7 @@ TODO: Fill out this long description.
 - [Contribute](#contribute)
 - [License](#license)
 
-## Background
+## Security
 
 ## Install
 
@@ -33,15 +30,14 @@ TODO: Fill out this long description.
 
 ## Maintainers
 
-[@nickcannariato](https://github.com/nickcannariato)
-[@fractured2k](https://github.com/fractured2k)
+[@PUT_YOUR_GITHUB_HANDLE_HERE](https://github.com/PUT_YOUR_GITHUB_HANDLE_HERE)
 
 ## Contribute
 
-PRs accepted.
+
 
 Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
 ## License
 
-MIT © 2019 Nick Cannariato
+MIT © 2019 PUT_YOUR_NAME_HERE
