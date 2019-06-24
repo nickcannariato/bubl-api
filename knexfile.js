@@ -19,10 +19,12 @@ module.exports = {
   },
   production: {
     client: 'postgresql',
-    connection: {
-      database: process.env.PROD_DB,
-      user: process.env.PROD_USER,
-      password: process.env.PROD_PW,
+    connection: process.env.DATABASE_URL,
+    migrations: {
+      directory: './models/migrations'
+    },
+    seeds: {
+      directory: './models/seeds'
     }
   }
 };
