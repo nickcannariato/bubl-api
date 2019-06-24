@@ -19,7 +19,7 @@ router.route('/register')
       const newUser = await User.add(user)
 
       return res.status(201).json({
-        message: `User ${newUser} has been created`
+        message: `User ${newUser.username} has been created`
       })
     }
     catch (e) {
