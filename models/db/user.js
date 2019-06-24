@@ -18,11 +18,12 @@ function find(filters) {
     .select(
       'u.audit_id AS audit_id',
       'u.username AS username',
+      'u.password AS password',
       'u.avatar_url AS avatar',
       'u.is_admin AS is_admin',
       's.name AS school'
     )
-    .join('school AS s', { 's.id': 'u.school_id' })
+    .join('schools AS s', { 's.id': 'u.school_id' })
     .where(filters)
 }
 
