@@ -1,4 +1,5 @@
 const db = require('../index');
+const uuid = require('uuid/v4');
 
 module.exports = {
   add,
@@ -9,7 +10,7 @@ module.exports = {
 
 function add(comment) {
   return db('comments as c')
-    .insert(comment, ['*'])
+    .insert({ ...comment, audit_id: uuid() }, ['*'])
     .then(c => find({ 'c.id': c[0].id }).first())
 }
 

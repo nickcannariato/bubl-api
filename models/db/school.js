@@ -1,4 +1,5 @@
 const db = require('../index');
+const uuid = require('uuid/v4');
 
 module.exports = {
   add,
@@ -9,11 +10,16 @@ module.exports = {
 
 function add(school) {
   return db('schools')
-    .insert(school, ['*'])
+    .insert({ ...school, audit_id: uuid() }, ['*'])
     .then(s => find({ 's.id': s[0].id }).first())
 }
 
-function find(filters) {
+function find(filters, options) {
+  if (filters && options.internal) {
+    return db('schools AS s')
+      .select('s.id AS id', 's.audit_id AS audit_id', 's.name AS school')
+      .where(filters)
+  }
   if (filters) {
     return db('schools AS s')
       .select('s.audit_id AS audit_id', 's.name AS school')
