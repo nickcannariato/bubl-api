@@ -11,6 +11,7 @@ exports.up = function(knex) {
       tbl.increments();
       tbl.uuid('audit_id').defaultTo(uuid()).notNullable()
       tbl.text('username').notNullable()
+      tbl.text('password').notNullable()
       tbl.text('avatar_url').nullable()
       tbl.integer('school_id')
          .references('id')
