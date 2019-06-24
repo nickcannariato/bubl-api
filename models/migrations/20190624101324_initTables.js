@@ -4,12 +4,12 @@ exports.up = function(knex) {
   return knex.schema
     .createTable('schools', tbl => {
       tbl.increments()
-      tbl.uuid('audit_id').defaultTo(uuid()).notNullable()
+      tbl.uuid('audit_id').defaultTo(uuid()).notNullable().unique()
       tbl.text('name').notNullable()
     })
     .createTable('users', tbl => {
       tbl.increments();
-      tbl.uuid('audit_id').defaultTo(uuid()).notNullable()
+      tbl.uuid('audit_id').defaultTo(uuid()).notNullable().unique()
       tbl.text('username').notNullable()
       tbl.text('password').notNullable()
       tbl.text('avatar_url').nullable()
@@ -23,7 +23,7 @@ exports.up = function(knex) {
     })
     .createTable('bubls', tbl => {
       tbl.increments()
-      tbl.uuid('audit_id').defaultTo(uuid()).notNullable()
+      tbl.uuid('audit_id').defaultTo(uuid()).notNullable().unique()
       tbl.text('topic').notNullable()
       tbl.integer('school_id')
          .references('id')
@@ -33,7 +33,7 @@ exports.up = function(knex) {
     })
     .createTable('posts', tbl => {
       tbl.increments()
-      tbl.uuid('audit_id').defaultTo(uuid()).notNullable()
+      tbl.uuid('audit_id').defaultTo(uuid()).notNullable().unique()
       tbl.text('title')
       tbl.text('body')
       tbl.datetime('created_at').defaultTo(knex.fn.now(6))
@@ -52,7 +52,7 @@ exports.up = function(knex) {
     })
     .createTable('comments', tbl => {
       tbl.increments()
-      tbl.uuid('audit_id').defaultTo(uuid()).notNullable()
+      tbl.uuid('audit_id').defaultTo(uuid()).notNullable().unique()
       tbl.text('body')
       tbl.datetime('created_at').defaultTo(knex.fn.now(6))
       tbl.integer('post_id')
