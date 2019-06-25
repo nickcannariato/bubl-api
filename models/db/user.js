@@ -22,7 +22,8 @@ function find(filters) {
       'u.password AS password',
       'u.avatar_url AS avatar',
       'u.is_admin AS is_admin',
-      's.name AS school'
+      's.name AS school',
+      's.audit_id AS school_audit_id'
     )
     .join('schools AS s', { 's.id': 'u.school_id' })
     .where(filters)
