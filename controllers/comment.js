@@ -80,7 +80,7 @@ router
     const comment = req.body;
     if (comment) {
       try {
-        const { id: post_id } = await Post.find({ audit_id });
+        const [{ id: post_id }] = await Post.find({ audit_id });
         const newComment = await Comment.add({ ...comment, post_id });
         res.status(201).json(newComment);
       } catch (error) {

@@ -78,7 +78,7 @@ router
     const post = req.body;
     if (post) {
       try {
-        const { id: bubl_id } = await Bubl.find({ audit_id });
+        const [{ id: bubl_id }] = await Bubl.find({ audit_id });
         const newPost = await Post.add({ ...post, bubl_id });
         res.status(201).json(newPost);
       } catch (error) {
