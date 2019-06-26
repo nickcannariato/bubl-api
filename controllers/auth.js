@@ -45,7 +45,10 @@ router.route('/login')
     try {
       const { username, password } = req.body;
   
-      const user = await User.find({ 'u.username': username }).first()
+      const user = await User.find(
+        { 'u.username': username }, 
+        { internal: true 
+      }).first()
 
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
