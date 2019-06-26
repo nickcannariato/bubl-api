@@ -14,7 +14,7 @@ function add(school) {
     .then(s => find({ "s.id": s[0].id }).first());
 }
 
-function find(filters = {}, options = {}) {
+function find(filters, options = {}) {
   if (filters && options.internal) {
     return db("schools AS s")
       .select("s.id AS id", "s.audit_id AS audit_id", "s.name AS school")
@@ -31,7 +31,7 @@ function find(filters = {}, options = {}) {
   );
 }
 
-function update(filters = {}, changes) {
+function update(filters, changes) {
   return db("schools AS s")
     .update(changes, ["*"])
     .where(filters)

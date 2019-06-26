@@ -2,73 +2,77 @@ const router = require("express").Router();
 
 const School = require("../models/db/school");
 
-router
-  .route("/")
-  .get(async (req, res, next) => {
+router.route("/")
+  .get(async (_, res) => {
     try {
       schools = await School.find();
-      res.status(200).json(schools);
+      return res.status(200).json(schools);
     } catch (error) {
       console.error(error);
-      res
-        .status(500)
-        .json({ message: "There was an issue fetching the schools." });
+      return res.status(500).json({ 
+        message: "There was an issue fetching the schools." 
+      });
     }
   })
-  .post(async (req, res, next) => {
+  .post(async (req, res) => {
     const school = req.body;
     if (school) {
       try {
         const newSchool = await School.add(school);
-        res.status(201).json(newSchool);
+        return res.status(201).json(newSchool);
       } catch (error) {
         console.error(error);
-        res
-          .status(500)
-          .json({ message: "There was an issue creating a new school." });
+        return res.status(500).json({ 
+          message: "There was an issue creating a new school." 
+        });
       }
     }
-    res.status(400).json({
+    return res.status(400).json({
       message: "Please provide all of the fields required to create a school."
     });
   });
 
-router
-  .route("/:audit_id")
-  .get(async (req, res, next) => {
+router.route("/:audit_id")
+  .get(async (req, res) => {
     const { audit_id } = req.params;
     try {
-      const school = await School.find({ audit_id });
-      if (school) res.status(200).json(school);
-      else
-        res.status(404).json({
+      const school = await School.find({ audit_id }).first();
+      
+      if (!school) {
+        return res.status(404).json({
           message: `The school with the id, ${audit_id}, could not be located.`
         });
+      }
+
+      return res.status(200).json(school);
     } catch (error) {
-      res.status(500).json({
+      
+      return res.status(500).json({
         message: `There was an error while trying to locate the school.`
       });
     }
   })
-  .put(async (req, res, next) => {
-    const { updates, audit_id } = req.body;
+  .put(async (req, res) => {
+    const updates = req.body;
+    const { audit_id } = req.params
     try {
       const school = await School.update({ audit_id }, updates);
-      res.status(200).json(school);
+      return res.status(200).json(school);
     } catch (error) {
-      res.status(500).json({
+      console.error(error)
+      return res.status(500).json({
         message: "There was an error while trying to update the school."
       });
     }
   })
-  .delete(async (req, res, next) => {
-    const { audit_id } = req.body;
+  .delete(async (req, res) => {
+    const { audit_id } = req.params;
     try {
       const success = await School.remove({ audit_id });
-      if (success) res.status(202).end();
+      if (success) return res.status(204).end();
       else throw Error;
     } catch (error) {
-      res.status(500).json({
+      return res.status(500).json({
         message: "There was an error while trying to delete the school."
       });
     }
