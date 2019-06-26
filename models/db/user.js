@@ -14,13 +14,27 @@ function add(user) {
     .then(u => find({ "u.id": u[0].id }).first());
 }
 
-function find(filters = {}) {
-  return db("users AS u")
+function find(filters = {}, options = {}) {
+  if (options.internal) {
+    return db("users AS u")
     .select(
       "u.id AS id",
       "u.audit_id AS audit_id",
       "u.username AS username",
       "u.password AS password",
+      "u.avatar_url AS avatar",
+      "u.is_admin AS is_admin",
+      "s.name AS school",
+      "s.audit_id AS school_audit_id"
+    )
+    .join("schools AS s", { "s.id": "u.school_id" })
+    .where(filters);
+  }
+  return db("users AS u")
+    .select(
+      "u.id AS id",
+      "u.audit_id AS audit_id",
+      "u.username AS username",
       "u.avatar_url AS avatar",
       "u.is_admin AS is_admin",
       "s.name AS school",

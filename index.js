@@ -26,8 +26,8 @@ app.use(morgan("dev"));
 
 // Routers:
 app.use("/api/auth", authRoutes);
-app.use("/api/school", schoolRoutes);
-app.use("/api/bubl", bublRoutes);
+app.use("/api/schools", schoolRoutes);
+app.use("/api/bubls", checkToken, bublRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/users", userRoutes);
