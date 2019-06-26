@@ -3,6 +3,7 @@ const router = require("express").Router();
 const Post = require("../models/db/post");
 const Bubl = require("../models/db/bubl");
 const User = require('../models/db/user');
+const Comment = require('../models/db/comment');
 
 router.route("/:bubl_id")
   .get(async (req, res) => {
@@ -92,7 +93,7 @@ router.route("/:bubl_id/:audit_id")
       });
     }
   })
-  .delete(async (req, res, next) => {
+  .delete(async (req, res) => {
     const { audit_id } = req.params;
     try {
       const success = await Post.remove({ 'p.audit_id': audit_id });
@@ -109,5 +110,21 @@ router.route("/:bubl_id/:audit_id")
       });
     }
   });
+
+router.route('/:bubl_id/:audit_id/comments')
+  .get(async (req, res) => {
+    const { bubl_id, audit_id } = req.params
+
+    try {
+      const comments = await Comment.find({ 'p.audit_id': audit_id })
+      return res.status(200).json(comments)
+    }
+    catch (error) {
+      console.error(error)
+      return res.status(500).json({
+        message: "There was an error retrieving the comments for that Post"
+      })
+    }
+  })
 
 module.exports = router;
