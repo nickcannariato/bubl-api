@@ -7,10 +7,11 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 
 // Middleware & Helpers
-const { checkToken } =  require('./middlewares/authorization');
+const { checkToken } = require("./middlewares/authorization");
 
 // Models
-const authRoutes = require('./controllers/auth');
+const authRoutes = require("./controllers/auth");
+const schoolRoutes = require("./controllers/school");
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 // Routers:
-app.use('/api/auth', authRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/school", schoolRoutes);
 
 // Server Up
 app.get("/", (req, res) => {
