@@ -14,7 +14,7 @@ function add(post) {
     .then(p => find({ "p.id": p[0].id }).first());
 }
 
-function find(filters) {
+function find(filters = {}) {
   return db("posts AS p")
     .select(
       "p.bubl_id AS bubl_id",
@@ -32,7 +32,7 @@ function find(filters) {
     .where(filters);
 }
 
-function update(filters, changes) {
+function update(filters = {}, changes) {
   return db("posts AS p")
     .update(changes, ["*"])
     .where(filters)

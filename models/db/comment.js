@@ -14,7 +14,7 @@ function add(comment) {
     .then(c => find({ "c.id": c[0].id }).first());
 }
 
-function find(filters) {
+function find(filters = {}) {
   return db("comments AS c")
     .select(
       "c.id AS id",
@@ -29,7 +29,7 @@ function find(filters) {
     .where(filters);
 }
 
-function update(filters, changes) {
+function update(filters = {}, changes) {
   return db("comments AS c")
     .update(changes, ["*"])
     .where(filters)

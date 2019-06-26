@@ -14,7 +14,7 @@ function add(user) {
     .then(u => find({ "u.id": u[0].id }).first());
 }
 
-function find(filters) {
+function find(filters = {}) {
   return db("users AS u")
     .select(
       "u.id AS id",
@@ -30,7 +30,7 @@ function find(filters) {
     .where(filters);
 }
 
-function update(filters, changes) {
+function update(filters = {}, changes) {
   return db("users AS u")
     .update(changes, ["*"])
     .where(filters)
