@@ -15,6 +15,7 @@ const schoolRoutes = require("./controllers/school");
 const bublRoutes = require("./controllers/bubl");
 const postRoutes = require("./controllers/post");
 const commentRoutes = require("./controllers/comment");
+const userRoutes = require("./controllers/user");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/api/school", schoolRoutes);
 app.use("/api/bubl", bublRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/users", userRoutes);
 
 // Server Up
 app.get("/", (req, res) => {
