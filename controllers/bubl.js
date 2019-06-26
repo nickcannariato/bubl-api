@@ -60,7 +60,7 @@ router
   .get(async (req, res, next) => {
     let { audit_id } = req.params;
     try {
-      const { id: school_id } = await School.find({ audit_id });
+      const [{ id: school_id }] = await School.find({ audit_id });
       const bubls = await Bubl.find({ school_id });
       if (bubls) res.status(200).json(bubls);
       else

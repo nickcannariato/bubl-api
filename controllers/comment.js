@@ -62,7 +62,7 @@ router
   .get(async (req, res, next) => {
     let { audit_id } = req.params;
     try {
-      const { id: post_id } = await Post.find({ audit_id });
+      const [{ id: post_id }] = await Post.find({ audit_id });
       const comments = await Post.find({ post_id });
       if (comments) res.status(200).json(comments);
       else
