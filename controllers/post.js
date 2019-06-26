@@ -7,7 +7,7 @@ router
   .route("/")
   .get(async (req, res, next) => {
     try {
-      posts = await posts.find();
+      posts = await Post.find();
       res.status(200).json(posts);
     } catch (error) {
       console.error(error);
