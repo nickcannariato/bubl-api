@@ -9,7 +9,6 @@ module.exports = {
 };
 
 function add(bubl) {
-  console.log(bubl);
   return db("bubls")
     .insert({ ...bubl, audit_id: uuid() }, ["*"])
     .then(b => find({ "b.id": b[0].id }).first());
