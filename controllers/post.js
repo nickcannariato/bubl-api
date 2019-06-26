@@ -3,36 +3,15 @@ const router = require("express").Router();
 const Post = require("../models/db/post");
 const Bubl = require("../models/db/bubl");
 
-router
-  .route("/")
-  .get(async (req, res, next) => {
-    try {
-      posts = await Post.find();
-      res.status(200).json(posts);
-    } catch (error) {
-      console.error(error);
-      res
-        .status(500)
-        .json({ message: "There was an issue fetching the posts." });
-    }
-  })
-  .post(async (req, res, next) => {
-    const post = req.body;
-    if (post) {
-      try {
-        const newpost = await Post.add(post);
-        res.status(201).json(newpost);
-      } catch (error) {
-        console.error(error);
-        res
-          .status(500)
-          .json({ message: "There was an issue creating a new post." });
-      }
-    }
-    res.status(400).json({
-      message: "Please provide all of the fields required to create a post."
-    });
-  });
+router.route("/").get(async (req, res, next) => {
+  try {
+    posts = await Post.find();
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "There was an issue fetching the posts." });
+  }
+});
 
 router
   .route("/:audit_id")
@@ -76,21 +55,42 @@ router
     }
   });
 
-router.route("/:audit_id/posts").get(async (req, res, next) => {
-  let { audit_id } = req.params;
-  try {
-    const { id: bubl_id } = await Bubl.find({ audit_id });
-    const posts = await Post.find({ bubl_id });
-    if (posts) res.status(200).json(posts);
-    else
-      res.status(404).json({
-        message: `The posts for bubl id, ${audit_id}, could not be located.`
+router
+  .route("/:audit_id/posts")
+  .get(async (req, res, next) => {
+    let { audit_id } = req.params;
+    try {
+      const [{ id: bubl_id }] = await Bubl.find({ audit_id });
+      const posts = await Post.find({ bubl_id });
+      if (posts) res.status(200).json(posts);
+      else
+        res.status(404).json({
+          message: `The posts for bubl id, ${audit_id}, could not be located.`
+        });
+    } catch (error) {
+      res.status(500).json({
+        message: `There was an error while trying to locate the posts.`
       });
-  } catch (error) {
-    res.status(500).json({
-      message: `There was an error while trying to locate the posts.`
+    }
+  })
+  .post(async (req, res, next) => {
+    const { audit_id } = req.params;
+    const post = req.body;
+    if (post) {
+      try {
+        const [{ id: bubl_id }] = await Bubl.find({ audit_id });
+        const newPost = await Post.add({ ...post, bubl_id });
+        res.status(201).json(newPost);
+      } catch (error) {
+        console.error(error);
+        res
+          .status(500)
+          .json({ message: "There was an issue creating a new post." });
+      }
+    }
+    res.status(400).json({
+      message: "Please provide all of the fields required to create a post."
     });
-  }
-});
+  });
 
 module.exports = router;
