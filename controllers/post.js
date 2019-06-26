@@ -60,7 +60,7 @@ router
   .get(async (req, res, next) => {
     let { audit_id } = req.params;
     try {
-      const [{ id: bubl_id }] = await Bubl.find({ audit_id });
+      const { id: bubl_id } = await Bubl.find({ audit_id }).first();
       const posts = await Post.find({ bubl_id });
       if (posts) res.status(200).json(posts);
       else
@@ -78,7 +78,7 @@ router
     const post = req.body;
     if (post) {
       try {
-        const [{ id: bubl_id }] = await Bubl.find({ audit_id });
+        const { id: bubl_id } = await Bubl.find({ audit_id }).first();
         const newPost = await Post.add({ ...post, bubl_id });
         res.status(201).json(newPost);
       } catch (error) {
