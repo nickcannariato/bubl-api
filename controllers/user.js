@@ -5,8 +5,10 @@ const User = require("../models/db/user");
 router
   .route("/")
   .get(async (req, res, next) => {
+    const { user } = res.locals;
+
     try {
-      users = await User.find();
+      users = await User.find({ 's.audit_id': user.school_audit_id });
       res.status(200).json(users);
     } catch (error) {
       console.error(error);
