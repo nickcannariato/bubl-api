@@ -14,7 +14,19 @@ function add(bubl) {
     .then(b => find({ "b.id": b[0].id }).first());
 }
 
-function find(filters = {}) {
+function find(filters = {}, options = {}) {
+  if (options.internal) {
+    return db("bubls AS b")
+    .select(
+      "b.id AS id",
+      "b.school_id AS school_id",
+      "b.audit_id AS audit_id",
+      "b.topic AS topic",
+      "s.name AS school"
+    )
+    .join("schools AS s", { "s.id": "b.school_id" })
+    .where(filters);  
+  }
   return db("bubls AS b")
     .select(
       "b.school_id AS school_id",
