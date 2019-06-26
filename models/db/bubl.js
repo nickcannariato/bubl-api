@@ -9,7 +9,6 @@ module.exports = {
 };
 
 function add(bubl) {
-  console.log(bubl);
   return db("bubls")
     .insert({ ...bubl, audit_id: uuid() }, ["*"])
     .then(b => find({ "b.id": b[0].id }).first());
@@ -23,7 +22,7 @@ function find(filters = {}) {
       "b.topic AS topic",
       "s.name AS school"
     )
-    .join("school AS s", { "s.id": "b.school_id" })
+    .join("schools AS s", { "s.id": "b.school_id" })
     .where(filters);
 }
 
