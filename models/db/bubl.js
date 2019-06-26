@@ -14,7 +14,7 @@ function add(bubl) {
     .then(b => find({ "b.id": b[0].id }).first());
 }
 
-function find(filters) {
+function find(filters = {}) {
   return db("bubls AS b")
     .select(
       "b.school_id AS school_id",
@@ -26,7 +26,7 @@ function find(filters) {
     .where(filters);
 }
 
-function update(filters, changes) {
+function update(filters = {}, changes) {
   return db("bubls AS b")
     .update(changes, ["*"])
     .where(filters)
