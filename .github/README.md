@@ -28,6 +28,11 @@
 
 ## API
 
+### Auth
+
+- `POST api/auth/register` <= Register a new user
+- `POST api/auth/login` <= Log a user in with username/password and return a JWT
+
 ### Schools
 
 Schools resource is unsecured unless noted (because when you register you need to get the list of schools)
