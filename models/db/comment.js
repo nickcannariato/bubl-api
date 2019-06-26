@@ -17,11 +17,10 @@ function add(comment) {
 function find(filters = {}) {
   return db("comments AS c")
     .select(
-      "c.id AS id",
       "c.audit_id AS audit_id",
-      "c.body AS comment",
+      "c.body AS body",
       "c.created_at AS created_at",
-      "p.title AS post",
+      "p.audit_id AS replying_to",
       "u.username AS author"
     )
     .join("posts AS p", { "p.id": "c.post_id" })

@@ -14,7 +14,25 @@ function add(post) {
     .then(p => find({ "p.id": p[0].id }).first());
 }
 
-function find(filters = {}) {
+function find(filters = {}, options = {}) {
+  if (options.internal) {
+    return db("posts AS p")
+      .select(
+        "p.id AS id",
+        "p.audit_id AS audit_id",
+        "p.title AS title",
+        "p.body AS body",
+        "p.created_at AS created_at",
+        "p.modified_at AS modified_at",
+        "b.topic AS bubl",
+        "b.audit_id AS bubl_id",
+        "u.audit_id AS author_id",
+        "u.username AS author"
+      )
+      .join("bubls AS b", { "b.id": "p.bubl_id" })
+      .join("users AS u", { "u.id": "p.author_id" })
+      .where(filters);  
+  }
   return db("posts AS p")
     .select(
       "b.audit_id AS bubl_id",
