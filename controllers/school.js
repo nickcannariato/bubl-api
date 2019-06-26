@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const { checkToken } = require('../middlewares/authorization');
 const School = require("../models/db/school");
 
 router.route("/")
@@ -16,6 +16,7 @@ router.route("/")
   })
   .post(async (req, res) => {
     const school = req.body;
+
     if (school) {
       try {
         const newSchool = await School.add(school);
@@ -52,22 +53,38 @@ router.route("/:audit_id")
       });
     }
   })
-  .put(async (req, res) => {
+  .put(checkToken, async (req, res) => {
     const updates = req.body;
     const { audit_id } = req.params
+    const { user } = res.locals
+
     try {
+      if (!user.is_admin) {
+        return res.status(403).json({
+          message: "You do not have the authorization to take that action"
+        })
+      }
+
       const school = await School.update({ audit_id }, updates);
       return res.status(200).json(school);
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error(error)
       return res.status(500).json({
         message: "There was an error while trying to update the school."
       });
     }
   })
-  .delete(async (req, res) => {
+  .delete(checkToken, async (req, res) => {
     const { audit_id } = req.params;
+    const { user } = res.locals
     try {
+      if (!user.is_admin) {
+        return res.status(403).json({
+          message: "You do not have the authorization to take that action"
+        })
+      }
       const success = await School.remove({ audit_id });
       if (success) return res.status(204).end();
       else throw Error;
