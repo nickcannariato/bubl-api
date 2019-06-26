@@ -25,7 +25,7 @@ exports.seed = async function (knex, Promise) {
     fakeUsers.push(createFakeUser());
   }
 
-  fs.writeFileSync('./authTestInfo.json', JSON.stringify({ users: fakeUsers }))
+  fs.writeFileSync(`${__dirname}/authTestInfo.json`, JSON.stringify({ users: fakeUsers }))
 
   fakeUsers.map(user => {
     user.password = bcrypt.hashSync(user.password, 4)
