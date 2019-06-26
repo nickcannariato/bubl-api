@@ -50,7 +50,7 @@ router
       });
     }
   })
-  .update(async (req, res, next) => {
+  .put(async (req, res, next) => {
     const { updates, audit_id } = req.body;
     try {
       const school = await School.update({ audit_id }, updates);

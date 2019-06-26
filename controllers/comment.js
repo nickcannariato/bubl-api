@@ -51,7 +51,7 @@ router
       });
     }
   })
-  .update(async (req, res, next) => {
+  .put(async (req, res, next) => {
     const { audit_id } = req.params;
     const { updates } = req.body;
     try {
