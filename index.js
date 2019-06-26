@@ -28,9 +28,9 @@ app.use(morgan("dev"));
 app.use("/api/auth", authRoutes);
 app.use("/api/schools", schoolRoutes);
 app.use("/api/bubls", checkToken, bublRoutes);
-app.use("/api/posts", postRoutes);
-app.use("/api/comments", commentRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api/posts", checkToken, postRoutes);
+app.use("/api/comments", checkToken, commentRoutes);
+app.use("/api/users", checkToken, userRoutes);
 
 // Server Up
 app.get("/", (req, res) => {

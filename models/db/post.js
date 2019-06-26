@@ -17,8 +17,8 @@ function add(post) {
 function find(filters = {}) {
   return db("posts AS p")
     .select(
-      "p.bubl_id AS bubl_id",
-      "p.author_id AS author_id",
+      "b.audit_id AS bubl_id",
+      "u.audit_id AS author_id",
       "p.audit_id AS audit_id",
       "p.title AS title",
       "p.body AS body",
@@ -27,7 +27,7 @@ function find(filters = {}) {
       "b.topic AS bubl",
       "u.username AS author"
     )
-    .join("buble AS b", { "b.id": "p.bubl_id" })
+    .join("bubls AS b", { "b.id": "p.bubl_id" })
     .join("users AS u", { "u.id": "p.author_id" })
     .where(filters);
 }
