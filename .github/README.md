@@ -6,25 +6,10 @@
 
 ## Table of Contents
 
-- [Security](#security)
-- [Install](#install)
-- [Usage](#usage)
 - [API](#api)
 - [Maintainers](#maintainers)
 - [Contribute](#contribute)
 - [License](#license)
-
-## Security
-
-## Install
-
-```
-```
-
-## Usage
-
-```
-```
 
 ## API
 
