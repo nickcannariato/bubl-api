@@ -35,7 +35,7 @@ router
   });
 
 router
-  .route("/:id")
+  .route("/:audit_id")
   .get(async (req, res, next) => {
     const { audit_id } = req.params;
     try {

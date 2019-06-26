@@ -34,9 +34,9 @@ router
   });
 
 router
-  .route("/id")
+  .route("/:audit_id")
   .get(async (req, res, next) => {
-    const { audit_id } = req.body;
+    const { audit_id } = req.params;
     try {
       const school = await School.find({ audit_id });
       if (school) res.status(200).json(school);
