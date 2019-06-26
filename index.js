@@ -13,6 +13,7 @@ const { checkToken } = require("./middlewares/authorization");
 const authRoutes = require("./controllers/auth");
 const schoolRoutes = require("./controllers/school");
 const bublRoutes = require("./controllers/bubl");
+const postRoutes = require("./controllers/post");
 
 const app = express();
 
@@ -24,7 +25,8 @@ app.use(morgan("dev"));
 // Routers:
 app.use("/api/auth", authRoutes);
 app.use("/api/school", schoolRoutes);
-app.use("/api/school", bublRoutes);
+app.use("/api/bubl", bublRoutes);
+app.use("/api/posts", postRoutes);
 
 // Server Up
 app.get("/", (req, res) => {

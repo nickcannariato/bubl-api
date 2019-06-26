@@ -16,10 +16,10 @@ router
     }
   })
   .post(async (req, res, next) => {
-    const { school } = req.body;
+    const school = req.body;
     if (school) {
       try {
-        const newSchool = await School.add();
+        const newSchool = await School.add(school);
         res.status(201).json(newSchool);
       } catch (error) {
         console.error(error);

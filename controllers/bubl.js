@@ -17,10 +17,10 @@ router
     }
   })
   .post(async (req, res, next) => {
-    const { bubl } = req.body;
+    const bubl = req.body;
     if (bubl) {
       try {
-        const newbubl = await Bubl.add();
+        const newbubl = await Bubl.add(bubl);
         res.status(201).json(newbubl);
       } catch (error) {
         console.error(error);
@@ -52,7 +52,7 @@ router
     }
   })
   .update(async (req, res, next) => {
-    const { aud_id } = req.params;
+    const { audit_id } = req.params;
     const { updates } = req.body;
     try {
       const bubl = await Bubl.update({ audit_id }, updates);
@@ -79,7 +79,7 @@ router
 router.route("/:audit_id/bubls").get(async (req, res, next) => {
   let { audit_id } = req.params;
   try {
-    const { school_id } = await School.find({ audit_id });
+    const { id: school_id } = await School.find({ audit_id });
     const bubls = await Bubl.find({ school_id });
     if (bubls) res.status(200).json(bubls);
     else
