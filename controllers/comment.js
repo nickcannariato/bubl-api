@@ -27,7 +27,7 @@ router.route("/:post_id")
         author_id
       })
 
-      return res.status(201).json(comment)
+      return res.status(201).json(newComment)
     }
     catch (error) {
       console.error(error)
