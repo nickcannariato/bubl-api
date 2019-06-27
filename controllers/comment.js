@@ -9,7 +9,6 @@ router.route("/:post_id")
     const { post_id } = req.params;
     const { user } = res.locals
     const comment = req.body
-
     try {
       const post = await Post.find(
         { 'p.audit_id': post_id }, 
