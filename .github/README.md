@@ -6,10 +6,28 @@
 
 ## Table of Contents
 
+- [Mission](#mission)
+- [Technologies](#technologies)
 - [API](#api)
 - [Maintainers](#maintainers)
 - [Contribute](#contribute)
 - [License](#license)
+
+## Mission
+
+Our mission is to increase a sense of belonging and reduce social anxiety amongst new High School students. 
+
+Bubl does this by providing Middle School students who are transitioning to High School a space to have topical discussions and develop relationships with other students who have similar interests.
+
+## Technologies
+
+This backend API was built using the following tools/libraries:
+
+- Node.js
+- Express.js
+- Knex.js
+- JWTs (for authentication)
+- PostgreSQL
 
 ## API
 
@@ -65,7 +83,7 @@ Schools resource is unsecured unless noted (because when you register you need t
 
 ## Contribute
 
-Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
+This is a @LambdaSchool student project, and as such Pull Requests and other contributions are not accepted. 
 
 ## License
 
